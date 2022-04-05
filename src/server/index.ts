@@ -9,7 +9,28 @@ const __dirname = path.dirname(__filename);
 export default async function main() {
   const csvPath = path.resolve(__dirname, "../../data/instagram_influencers.csv");
   const csvData = fs.readFileSync(csvPath).toString();
-  const influencers = d3.csvParse(csvData);
+  const parsedInfluencers = d3.csvParse(csvData);
 
-  return influencers;
+  parsedInfluencers.forEach(influencer => {
+    influencer["Followers"] = parseAbbreviatedNumbers(influencer["Followers"]).toString();
+    influencer["Authentic engagement"] = parseAbbreviatedNumbers(influencer["Authentic engagement"]).toString();
+    influencer["Engagement avg"] = parseAbbreviatedNumbers(influencer["Engagement avg"]).toString();
+  });
+
+  return parsedInfluencers;
+}
+
+const parseAbbreviatedNumbers = (number: string) =>
+{
+  var base = parseFloat(number);
+  if (number.toLowerCase().match(/k/))
+  {
+    return Math.round(base * 1000);
+  }
+  else if ( number.toLowerCase().match(/m/))
+  {
+    return Math.round(base * 1000000);
+  } else {
+    return base;
+  }
 }
