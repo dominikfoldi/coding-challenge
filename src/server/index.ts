@@ -17,7 +17,16 @@ export default async function main() {
     influencer["Engagement avg"] = parseAbbreviatedNumbers(influencer["Engagement avg"]).toString();
   });
 
-  return parsedInfluencers;
+  const influencersByCategory = d3.group(parsedInfluencers, influencer => influencer.category_1);
+  
+  const topInfluencersPerCategory = [];
+  for (let [category, influencers] of influencersByCategory.entries()) {
+    const maxIndex = d3.maxIndex(influencers, influencer => influencer.Followers);
+    const topInfluencer = influencers[maxIndex];
+    topInfluencersPerCategory.push({category, topInfluencer});
+  }
+
+  return topInfluencersPerCategory;
 }
 
 const parseAbbreviatedNumbers = (number: string) =>
