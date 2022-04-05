@@ -23,10 +23,19 @@ export default async function main() {
   for (let [category, influencers] of influencersByCategory.entries()) {
     const maxIndex = d3.maxIndex(influencers, influencer => influencer.Followers);
     const topInfluencer = influencers[maxIndex];
-    topInfluencersPerCategory.push({category, topInfluencer});
+    topInfluencersPerCategory.push({category, topInfluencerInstaName: topInfluencer["Influencer insta name"], topInfluencer});
   }
 
-  return topInfluencersPerCategory;
+  const influencersByCountry = d3.group(parsedInfluencers, influencer => influencer["Audience country(mostly)"]);
+  
+  const topInfluencersByCountry = [];
+  for (let [country, influencers] of influencersByCountry.entries()) {
+    const maxIndex = d3.maxIndex(influencers, influencer => influencer["Engagement avg"]);
+    const topInfluencer = influencers[maxIndex];
+    topInfluencersByCountry.push({country, topInfluencerInstaName: topInfluencer["Influencer insta name"], topInfluencer});
+  }
+
+  return {topInfluencersPerCategory, topinfluencersByCountry: topInfluencersByCountry};
 }
 
 const parseAbbreviatedNumbers = (number: string) =>
