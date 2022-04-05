@@ -63,8 +63,9 @@ ignore it if you want. You have the freedom to build how you see fit.
 
 You should aim to cap your time at around 2 hours. You've got your life to live.
 The solution doesn't need to be perfect, but you should aim to get the main stuff
-working, and include a README explaining what you'd do next, how you'd improve it
-if you had more time, and any assumptions you made.
+working, and include a README (added it as [TODOS.md](TODOS.md)) explaining what
+you'd do next, how you'd improve it if you had more time, and any assumptions you
+made.
 
 2 hours probably isn't enough time to create a really elegant solution for this
 challenge. Part of the test is to see how you handle a limited time budget. So
